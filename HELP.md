@@ -15,3 +15,4 @@ Stream untuk karakter `Reader dan Writer `, stream untuk bytes atau numeric `Inp
 - test/FileManipulationTest.java
 - test/ClosableTest.java
 - test/SmallFileTest.java
+- test/InputStreamTest.java
