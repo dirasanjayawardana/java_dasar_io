@@ -20,6 +20,7 @@ public class InputStreamTest {
   @Test
   void read() {
     Path path = Path.of("pom.xml");
+    
     try (InputStream stream = Files.newInputStream(path)) {
       StringBuilder builder = new StringBuilder();
       int data;
@@ -43,6 +44,7 @@ public class InputStreamTest {
   @Test
   void readBytes() {
     Path path = Path.of("pom.xml");
+
     try (InputStream stream = Files.newInputStream(path)) {
       StringBuilder builder = new StringBuilder();
       byte[] bytes = new byte[1024];

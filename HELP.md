@@ -16,3 +16,8 @@ Stream untuk karakter `Reader dan Writer `, stream untuk bytes atau numeric `Inp
 - test/ClosableTest.java
 - test/SmallFileTest.java
 - test/InputStreamTest.java
+- test/OutputsStreamTest.java
+- test/ReaderTest.java
+- test/WriterTest.java
+- test/OpenOptionTest.java
+- test/ObjectStreamTest.java
