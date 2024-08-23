@@ -21,3 +21,7 @@ Stream untuk karakter `Reader dan Writer `, stream untuk bytes atau numeric `Inp
 - test/WriterTest.java
 - test/OpenOptionTest.java
 - test/ObjectStreamTest.java
+- test/MemoryStreamTest.java
+- test/PrintStreamTest.java
+- test/ScannerTest.java
+- main/ScannerInputApp.java
