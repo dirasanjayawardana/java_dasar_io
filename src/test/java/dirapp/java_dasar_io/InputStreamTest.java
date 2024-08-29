@@ -65,5 +65,34 @@ public class InputStreamTest {
       Assertions.fail(exception);
     }
   }
+
+
+  @Test
+    void readImageBytes() {
+        Path path = Path.of("image.png"); // Ganti dengan path file gambar yang ingin Anda baca
+
+        try (InputStream stream = Files.newInputStream(path)) {
+            StringBuilder builder = new StringBuilder();
+            byte[] bytes = new byte[1024];
+            int length;
+            int counter = 0;
+
+            // Membaca data biner dari file gambar
+            while ((length = stream.read(bytes)) != -1) {
+                // Anda dapat memproses data biner di sini atau menyimpannya ke array/struktur data lain
+                builder.append(new String(bytes, 0, length)); // Ini hanya untuk demo, tidak diperlukan untuk gambar
+                counter++;
+            }
+
+            System.out.println("Bytes read: " + builder.toString());
+            System.out.println("Number of reads: " + counter);
+
+            // Contoh: Anda mungkin ingin melakukan sesuatu dengan byte[] untuk memproses gambar
+            // misalnya menyimpan byte[] ke file lain, atau memproses data gambar lebih lanjut.
+            
+        } catch (IOException exception) {
+            Assertions.fail(exception);
+        }
+    }
 }
 
