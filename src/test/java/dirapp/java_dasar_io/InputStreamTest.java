@@ -68,28 +68,21 @@ public class InputStreamTest {
 
 
   @Test
-    void readImageBytes() {
-        Path path = Path.of("image.png"); // Ganti dengan path file gambar yang ingin Anda baca
+    void copyImageFile() {
+        Path sourcePath = Path.of("image.png");  // Ganti dengan path file gambar sumber
+        Path targetPath = Path.of("copy_image.png");  // Ganti dengan path file tujuan
 
-        try (InputStream stream = Files.newInputStream(path)) {
-            StringBuilder builder = new StringBuilder();
-            byte[] bytes = new byte[1024];
-            int length;
-            int counter = 0;
+        try (InputStream inputStream = Files.newInputStream(sourcePath);
+             OutputStream outputStream = Files.newOutputStream(targetPath)) {
 
-            // Membaca data biner dari file gambar
-            while ((length = stream.read(bytes)) != -1) {
-                // Anda dapat memproses data biner di sini atau menyimpannya ke array/struktur data lain
-                builder.append(new String(bytes, 0, length)); // Ini hanya untuk demo, tidak diperlukan untuk gambar
-                counter++;
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
             }
 
-            System.out.println("Bytes read: " + builder.toString());
-            System.out.println("Number of reads: " + counter);
+            System.out.println("Gambar berhasil disalin ke " + targetPath.toString());
 
-            // Contoh: Anda mungkin ingin melakukan sesuatu dengan byte[] untuk memproses gambar
-            // misalnya menyimpan byte[] ke file lain, atau memproses data gambar lebih lanjut.
-            
         } catch (IOException exception) {
             Assertions.fail(exception);
         }
