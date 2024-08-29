@@ -3,6 +3,7 @@ package dirapp.java_dasar_io;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -68,20 +69,28 @@ public class InputStreamTest {
 
 
   @Test
-    void copyImageFile() {
+    void saveBufferToFile() {
         Path sourcePath = Path.of("image.png");  // Ganti dengan path file gambar sumber
-        Path targetPath = Path.of("copy_image.png");  // Ganti dengan path file tujuan
+        Path targetPath = Path.of("saved_buffer_image.png");  // Ganti dengan path file tujuan
 
-        try (InputStream inputStream = Files.newInputStream(sourcePath);
-             OutputStream outputStream = Files.newOutputStream(targetPath)) {
+        // ByteArrayOutputStream untuk menampung buffer yang berhasil dibaca
+        ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
+
+        try (InputStream inputStream = Files.newInputStream(sourcePath)) {
 
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
+                // Menyimpan byte[] yang dibaca ke dalam ByteArrayOutputStream
+                bufferStream.write(buffer, 0, bytesRead);
             }
 
-            System.out.println("Gambar berhasil disalin ke " + targetPath.toString());
+            // Setelah semua buffer dibaca, tulis byte[] ke file lain
+            try (OutputStream outputStream = Files.newOutputStream(targetPath)) {
+                bufferStream.writeTo(outputStream);
+            }
+
+            System.out.println("Buffer berhasil disimpan ke " + targetPath.toString());
 
         } catch (IOException exception) {
             Assertions.fail(exception);
