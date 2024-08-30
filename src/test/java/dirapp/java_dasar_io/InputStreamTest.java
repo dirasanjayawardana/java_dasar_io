@@ -96,5 +96,53 @@ public class InputStreamTest {
             Assertions.fail(exception);
         }
     }
+
+
+  @Test
+  void saveBufferToFileAndDatabase() {
+      Path sourcePath = Path.of("image.png");  // Ganti dengan path file gambar sumber
+      Path targetPath = Path.of("saved_buffer_image.png");  // Ganti dengan path file tujuan
+  
+      ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
+  
+      try (InputStream inputStream = Files.newInputStream(sourcePath)) {
+          byte[] buffer = new byte[1024];
+          int bytesRead;
+          while ((bytesRead = inputStream.read(buffer)) != -1) {
+              bufferStream.write(buffer, 0, bytesRead);
+          }
+  
+          // Simpan byte[] ke database
+          saveToDatabase(bufferStream.toByteArray());
+  
+          System.out.println("Buffer berhasil disimpan ke " + targetPath.toString() + " dan database.");
+  
+      } catch (IOException exception) {
+          Assertions.fail(exception);
+      }
+  }
+
+  
+  void saveToDatabase(byte[] imageData) {
+      String url = "jdbc:mysql://localhost:3306/yourdatabase";  // Ganti dengan URL database Anda
+      String username = "yourusername";  // Ganti dengan username database Anda
+      String password = "yourpassword";  // Ganti dengan password database Anda
+  
+      String insertSQL = "INSERT INTO your_table_name (image_data) VALUES (?)";  // Ganti dengan nama tabel dan kolom Anda
+  
+      try (Connection connection = DriverManager.getConnection(url, username, password);
+           PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+  
+          preparedStatement.setBytes(1, imageData);
+          int rowsAffected = preparedStatement.executeUpdate();
+  
+          if (rowsAffected > 0) {
+              System.out.println("Image data berhasil disimpan ke database.");
+          }
+  
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+}
 }
 
