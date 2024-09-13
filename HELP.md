@@ -29,7 +29,7 @@ Stream untuk karakter `Reader dan Writer `, stream untuk bytes atau numeric `Inp
 ## Running Task while Java Springboot Start Initialized
 1. Menggunakan @PostConstruct
 Anda dapat menulis kode yang ingin dieksekusi setelah bean diinisialisasi dengan anotasi @PostConstruct.
-
+```
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,11 +45,11 @@ public class InitialDataLoader {
         yourRepository.findAll().forEach(System.out::println);
     }
 }
-
+```
 
 2. Menggunakan CommandLineRunner
 CommandLineRunner adalah interface yang disediakan Spring Boot untuk menjalankan kode setelah aplikasi diinisialisasi. Anda dapat menggunakannya untuk menjalankan query saat startup.
-
+```
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -65,10 +65,11 @@ public class DatabaseQueryRunner implements CommandLineRunner {
         yourRepository.findAll().forEach(System.out::println);
     }
 }
+```
 
 3. Menggunakan ApplicationRunner
 ApplicationRunner mirip dengan CommandLineRunner, tetapi menerima ApplicationArguments yang lebih kaya untuk mengelola argumen aplikasi.
-
+```
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -85,3 +86,4 @@ public class DatabaseQueryApplicationRunner implements ApplicationRunner {
         yourRepository.findAll().forEach(System.out::println);
     }
 }
+```
